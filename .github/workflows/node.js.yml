@@ -27,8 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install --legacy-peer-deps
-       npx playwright install
-       npx playwright install chromium
+    - run: npx playwright install
+    - run: npx playwright install chrome
     - run: npm ci --legacy-peer-deps
     - run: npm run build
     - run: npm test

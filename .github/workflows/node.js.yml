@@ -31,20 +31,27 @@ jobs:
     - run: npx playwright install chrome
     - run: npm ci --legacy-peer-deps
     - run: npm run build
-    - run: npm test
+    - name: Upload static files as artifact
+      id: deployment
+      uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+      with:
+        path: build_output/
+    
   test:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - run: npm test
       - run: npm run dev & npx wait-on http://localhost:3000
       - run: npm run test # This command runs the Vite unit tests, specified in package.json.
       - run: npx playwright test
+      
   deploy:
     needs: test
     runs-on: ubuntu-latest
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write      
+      id-token: write  
 
     # Deploy to the github-pages environment
     environment:
@@ -55,4 +62,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
+        uses: actions/deploy-pages@v4 

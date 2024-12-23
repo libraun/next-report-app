@@ -42,7 +42,5 @@ jobs:
     - run: npm run build
     - run: npm test
     - run: npx playwright test
-    - name: Build GitHub pages page
+    - name: Build and deploy GitHub Pages page
       run: gh-pages -d build
-    - name: Deploy application
-      run: npm run deploy

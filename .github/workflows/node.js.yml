@@ -31,6 +31,8 @@ jobs:
     - run: npx playwright install chrome
     - run: npm ci --legacy-peer-deps
     - run: npm run build
+    - name: Create artifact output directory
+      run: mkdir build_output
     - name: Upload static files as artifact
       id: deployment
       uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action

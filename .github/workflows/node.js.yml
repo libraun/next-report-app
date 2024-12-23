@@ -50,13 +50,7 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm run dev & npx wait-on http://localhost:3000
+      - uses: actions/checkout@v4ocalhost:3000
       - run: npm run test # This command runs the Vite unit tests, specified in package.json.
       - run: npx playwright test
       

@@ -44,10 +44,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ build.matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ build.matrix.node-version }}
           cache: 'npm'
       - run: npm test
       - run: npm run dev & npx wait-on http://localhost:3000

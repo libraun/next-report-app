@@ -41,6 +41,7 @@ jobs:
     - run: npm ci --legacy-peer-deps
     - run: npm run build
     - run: npm test
-    - run: npx playwright test
-    - name: Build and deploy GitHub Pages page
-      run: gh-pages -d build
+    - name: Run Playwright tests
+      run: npx playwright test
+    - name: Start app
+      run: npm start

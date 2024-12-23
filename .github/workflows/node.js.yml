@@ -44,4 +44,8 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
     - name: Start app
-      run: npm start
+      uses: actions/upload-artifact@v4
+      with:
+        path: ./.next
+    - name: Deploy app
+      uses: akhileshns/heroku-deploy@v3.12.13

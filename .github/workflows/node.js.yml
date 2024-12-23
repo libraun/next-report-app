@@ -29,5 +29,8 @@ jobs:
     - run: npm install --legacy-peer-deps
        npx playwright install
     - run: npm ci --legacy-peer-deps
-    - run: npm run build --if-present
+    - run: npm run build
     - run: npm test
+    - run: npm run dev & npx wait-on http://localhost:3000
+    - run: npm run test # This command runs the Vite unit tests, specified in package.json.
+    - run: npx playwright test

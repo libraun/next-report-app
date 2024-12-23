@@ -31,6 +31,7 @@ jobs:
     - run: npx playwright install chrome
     - run: npm ci --legacy-peer-deps
     - run: npm run build
+    - run: npm test
     - name: Create artifact output directory
       run: mkdir build_output
     - name: Upload static files as artifact
@@ -55,7 +56,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm test
       - run: npm run dev & npx wait-on http://localhost:3000
       - run: npm run test # This command runs the Vite unit tests, specified in package.json.
       - run: npx playwright test

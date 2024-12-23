@@ -42,8 +42,7 @@ jobs:
     - run: npm run build
     - run: npm test
     - run: npx playwright test
-    - name: Create output directory
-      run: mkdir dist
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4 
+    - name: Build GitHub pages page
+      run: gh-pages -d build
+    - name: Deploy application
+      run: npm run deploy

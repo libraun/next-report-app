@@ -42,12 +42,18 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ build.matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ build.matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm test
       - run: npm run dev & npx wait-on http://localhost:3000
@@ -55,7 +61,7 @@ jobs:
       - run: npx playwright test
       
   deploy:
-    needs: test
+    needs: [build, test]
     runs-on: ubuntu-latest
     permissions:
       pages: write      
@@ -68,6 +74,12 @@ jobs:
 
     # Specify runner + deployment step
     steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4 
